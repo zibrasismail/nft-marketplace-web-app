@@ -62,41 +62,41 @@ body {
     --chart-5: 340 75% 55%;
   }
 
-  /* Add smooth scrolling to the whole page */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Improve container padding on different screen sizes */
   .container {
     @apply px-4 mx-auto;
-    max-width: 1280px; /* or your preferred max-width */
+    max-width: 1280px;
   }
 
-  /* Add consistent section spacing */
   section {
     @apply py-8 md:py-12;
   }
 
-  /* Style headings consistently */
   h1.gradient-heading {
     @apply text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent mb-4;
   }
 
-  /* Add transitions */
   * {
     @apply transition-colors duration-200;
   }
-}
 
-@layer base {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     @apply border-border;
     transition-property: color, background-color, border-color,
       text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
   }
+
   body {
     @apply bg-background text-foreground;
   }
