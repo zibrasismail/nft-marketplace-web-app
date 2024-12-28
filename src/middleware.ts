@@ -1,41 +1,37 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Protected routes that require wallet connection
-const protectedRoutes = [
-  "/stats",
-  "/mint",
-  "/donate",
-  "/explore",
-  "/purchased",
-];
-
 export function middleware(request: NextRequest) {
   // Get the pathname of the request
   const { pathname } = request.nextUrl;
 
-  // Check if the pathname is in protectedRoutes
-  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
-    // Get the wallet connection state from cookies
-    const isWalletConnected =
-      request.cookies.get("wallet-connected")?.value === "true";
+  // Only protect the /mint route for now to debug the issue
+  if (pathname.startsWith("/mint")) {
+    const walletCookie = request.cookies.get("wallet-connected");
+    const isWalletConnected = walletCookie?.value === "true";
 
-    // If wallet is not connected, redirect to home page
+    // Log cookie state (will appear in server logs)
+    console.log("Wallet Cookie:", walletCookie);
+    console.log("Is Wallet Connected:", isWalletConnected);
+
     if (!isWalletConnected) {
-      return NextResponse.redirect(new URL("/", request.url));
+      // Add a response header for debugging
+      const response = NextResponse.redirect(new URL("/", request.url));
+      response.headers.set("X-Redirect-Reason", "Wallet not connected");
+      return response;
     }
   }
 
   return NextResponse.next();
 }
 
-// Configure which routes to run middleware on
+// Update matcher to be more specific
 export const config = {
   matcher: [
-    "/stats/:path*",
     "/mint/:path*",
-    "/donate/:path*",
-    "/explore/:path*",
     "/purchased/:path*",
+    "/donate/:path*",
+    "/stats/:path*",
+    "/explore/:path*",
   ],
 };

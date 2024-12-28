@@ -166,10 +166,10 @@ export function Navbar() {
               </Link>
               <Link
                 href="/purchased"
-                className="text-sm font-medium transition-colors hover:text-primary relative group"
+                className="block px-4 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                onClick={handleMenuItemClick}
               >
                 Purchased NFTs
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
               </Link>
               <Link
                 href="/donate"
