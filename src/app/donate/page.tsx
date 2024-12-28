@@ -48,6 +48,7 @@ export default function DonatePage() {
 
       if (response && Array.isArray(response[0])) {
         const creatorStats = response[0]
+          /* eslint-disable @typescript-eslint/no-explicit-any */
           .map((creator: any) => ({
             address: creator.address,
             totalNFTs: Number(creator.total_nfts),
@@ -70,7 +71,7 @@ export default function DonatePage() {
     } finally {
       setIsLoading(false);
     }
-  }, [account?.address, aptos, toast]);
+  }, [account?.address, toast]);
 
   useEffect(() => {
     fetchAllCreators();
